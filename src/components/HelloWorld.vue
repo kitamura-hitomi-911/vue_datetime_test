@@ -1,6 +1,21 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <Datetime v-model="date1" type="datetime" input-id="date1">
+      <label slot="before" for="date1">日付１</label>
+    </Datetime>
+    <DatePicker v-model="date2" :language="ja"></DatePicker>
+    <VueCtkDateTimePicker
+        v-model="date3"
+        :format="'YYYY-MM-DD HH:mm'"
+        :no-label="true"
+        :no-header="true"
+        button-now-translation="今日"
+        :minute-interval="5"
+        :disabled-hours="['00', '01', '02', '03', '04', '05', '06', '23']"
+        :overlay="true"
+        :label="placeHolder"
+    ></VueCtkDateTimePicker>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
@@ -33,10 +48,34 @@
 </template>
 
 <script>
+import {Datetime} from 'vue-datetime'
+import 'vue-datetime/dist/vue-datetime.css'
+
+/* これは時間できなかった */
+import DatePicker from 'vuejs-datepicker'
+import {ja} from 'vuejs-datepicker/dist/locale'
+
+import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
+import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
+
 export default {
   name: 'HelloWorld',
+  data(){
+    return {
+      date1:'2020-12-12T00:00:00+09:00',
+      date2:new Date('2020-12-12'),
+      ja,
+      date3:'2020-12-12 11:00',
+      placeHolder:'日時を選択'
+    }
+  },
   props: {
     msg: String
+  },
+  components:{
+    Datetime,
+    DatePicker,
+    VueCtkDateTimePicker
   }
 }
 </script>
